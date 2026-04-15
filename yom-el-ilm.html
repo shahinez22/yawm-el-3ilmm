@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>يوم العلم — ١٦ أبريل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #0d6e3a;
+      --green-light: #1a9c54;
+      --gold: #c9a84c;
+      --gold-light: #f0cc77;
+      --cream: #fdf6e3;
+      --dark: #0a1a0f;
+      --red: #c0392b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ─── STARS BACKGROUND ─── */
+    .stars-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .star {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--d, 3s) var(--delay, 0s) infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: var(--op, 0.7); transform: scale(1.5); }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(13,110,58,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(201,168,76,0.12) 0%, transparent 70%);
+    }
+
+    .flag-stripe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 6px;
+      background: linear-gradient(to right, var(--green) 50%, var(--red) 50%);
+    }
+
+    .crescent-bg {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(600px, 90vw);
+      height: min(600px, 90vw);
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.08);
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    .crescent-bg::before {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.05);
+      animation: pulse-ring 4s ease-in-out infinite reverse;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.03); opacity: 0.6; }
+    }
+
+    .hero-date {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #e8b84b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+      text-shadow: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      color: rgba(253,246,227,0.75);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(13,110,58,0.3);
+      border: 1px solid rgba(13,110,58,0.6);
+      border-radius: 100px;
+      padding: 0.6rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--green-light);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(201,168,76,0.5);
+      font-size: 0.75rem;
+      animation: bounce 2s infinite;
+    }
+    .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent); }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s;
+    }
+    .section-label.visible { opacity: 1; transform: none; }
+
+    .section-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: var(--cream);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s 0.1s;
+    }
+    .section-title.visible { opacity: 1; transform: none; }
+
+    .section-text {
+      font-size: 1.05rem;
+      line-height: 2;
+      color: rgba(253,246,227,0.7);
+      max-width: 720px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s 0.2s;
+    }
+    .section-text.visible { opacity: 1; transform: none; }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+      margin: 0 auto;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .about-image-box {
+      position: relative;
+      aspect-ratio: 1;
+      max-width: 380px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.8s 0.3s;
+    }
+    .about-image-box.visible { opacity: 1; transform: none; }
+
+    .book-icon-big {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at center, rgba(13,110,58,0.15) 0%, transparent 70%);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 20px;
+      font-size: clamp(6rem, 15vw, 10rem);
+    }
+
+    /* ─── IMAM ─── */
+    .imam-section {
+      background: rgba(13,110,58,0.07);
+      border: 1px solid rgba(13,110,58,0.2);
+      border-radius: 24px;
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s;
+    }
+    .imam-section.visible { opacity: 1; transform: none; }
+    @media (max-width: 700px) { .imam-section { grid-template-columns: 1fr; padding: 2rem; text-align: center; } }
+
+    .imam-avatar {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      border: 3px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    .imam-name {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .imam-dates {
+      font-size: 0.95rem;
+      color: var(--green-light);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .imam-bio {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: rgba(253,246,227,0.72);
+    }
+
+    .imam-quote {
+      margin-top: 1.5rem;
+      padding: 1.2rem 1.8rem;
+      border-right: 3px solid var(--gold);
+      background: rgba(201,168,76,0.06);
+      border-radius: 0 12px 12px 0;
+      font-family: 'Amiri', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--gold-light);
+      line-height: 1.8;
+    }
+
+    /* ─── CARDS ─── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.4s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .card.visible { opacity: 1; transform: none; }
+    .card:hover {
+      background: rgba(13,110,58,0.1);
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-4px);
+    }
+
+    .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--gold-light); }
+    .card-text { font-size: 0.92rem; line-height: 1.8; color: rgba(253,246,227,0.65); }
+
+    /* ─── TIMELINE ─── */
+    .timeline {
+      position: relative;
+      margin-top: 3rem;
+      padding-right: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green), var(--gold), var(--green));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-right: 3rem;
+      padding-bottom: 3rem;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.6s;
+    }
+    .timeline-item.visible { opacity: 1; transform: none; }
+
+    .timeline-dot {
+      position: absolute;
+      right: -7px; top: 4px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 3px solid var(--dark);
+    }
+
+    .timeline-year {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--green-light);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-event { font-size: 1rem; line-height: 1.7; color: rgba(253,246,227,0.75); }
+
+    /* ─── STATS ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 2rem 1rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 16px;
+      background: rgba(13,110,58,0.06);
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.5s;
+    }
+    .stat-box.visible { opacity: 1; transform: scale(1); }
+    .stat-number {
+      font-family: 'Amiri', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      display: block;
+    }
+    .stat-label { font-size: 0.85rem; color: rgba(253,246,227,0.6); margin-top: 0.3rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      color: rgba(253,246,227,0.35);
+      font-size: 0.85rem;
+    }
+    .footer-flag { font-size: 2rem; margin-bottom: 0.5rem; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(10,26,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      transform: translateY(-100%);
+      animation: slideDown 0.6s 1s forwards;
+    }
+    @keyframes slideDown {
+      to { transform: translateY(0); }
+    }
+
+    .nav-logo {
+      font-family: 'Amiri', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(253,246,227,0.65);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars-bg" id="stars"></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">🇩🇿 يوم العلم</div>
+  <ul class="nav-links">
+    <li><a href="#about">عن اليوم</a></li>
+    <li><a href="#imam">الإمام</a></li>
+    <li><a href="#history">التاريخ</a></li>
+    <li><a href="#activities">الأنشطة</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="flag-stripe"></div>
+  <div class="crescent-bg"></div>
+
+  <p class="hero-date">١٦ أبريل</p>
+  <h1 class="hero-title">يوم العلم</h1>
+  <p class="hero-subtitle">إحياءً لذكرى الإمام عبد الحميد بن باديس — رمز العلم والهوية الجزائرية</p>
+  <div class="hero-badge">
+    <span>🇩🇿</span>
+    <span>الجمهورية الجزائرية الديمقراطية الشعبية</span>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>تمرير للأسفل</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- About -->
+<section id="about">
+  <span class="section-label animate">ما هو؟</span>
+  <h2 class="section-title animate">يوم العلم في الجزائر</h2>
+
+  <div class="about-grid">
+    <div>
+      <p class="section-text animate">
+        يوم العلم هو عيد وطني جزائري يُحتفل به كل سنة في السادس عشر من أبريل،
+        وهو يوافق ذكرى وفاة الإمام عبد الحميد بن باديس عام ١٩٤٠،
+        العالم الجليل والمصلح الديني الذي كرّس حياته لنشر العلم والتعليم
+        في ظلّ الاستعمار الفرنسي.
+      </p>
+      <br>
+      <p class="section-text animate">
+        يهدف هذا اليوم إلى تكريم قيمة العلم والمعرفة، والاعتراف بدور المعلمين
+        في بناء الأجيال، وتجديد الالتزام بالتعليم كركيزة أساسية لنهضة الجزائر.
+      </p>
+    </div>
+    <div class="about-image-box animate">
+      <div class="book-icon-big">📚</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-box animate">
+      <span class="stat-number">١٩٤٠</span>
+      <div class="stat-label">سنة وفاة ابن باديس</div>
+    </div>
+    <div class="stat-box animate">
+      <span class="stat-number">١٩٧٢</span>
+      <div class="stat-label">أول احتفال رسمي</div>
+    </div>
+    <div class="stat-box animate">
+      <span class="stat-number">٥٢</span>
+      <div class="stat-label">عاماً من الاحتفال</div>
+    </div>
+    <div class="stat-box animate">
+      <span class="stat-number">١٦</span>
+      <div class="stat-label">أبريل من كل سنة</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Imam -->
+<section id="imam">
+  <span class="section-label animate">الشخصية المحورية</span>
+  <h2 class="section-title animate">الإمام عبد الحميد بن باديس</h2>
+
+  
+   
+    <div>
+      <img src="./OIP (1).webp">
+      
+      <p class="imam-dates">١٨٨٩ — ١٦ أبريل ١٩٤٠ · قسنطينة، الجزائر</p>
+      <p class="imam-bio">
+        عالم دين ومربٍّ جزائري بارز، وُلد في قسنطينة ودرس في جامع الزيتونة بتونس.
+        أسّس جمعية العلماء المسلمين الجزائريين عام ١٩٣١ وأدار مدارس عديدة
+        لتعليم القرآن الكريم والعلوم الإسلامية واللغة العربية،
+        رافضاً السياسة الاستيعابية الفرنسية التي كانت تسعى لمحو الهوية الجزائرية.
+        ترك إرثاً خالداً في الفكر والتعليم والوطنية.
+      </p>
+      <blockquote class="imam-quote">
+        "الشعب الجزائري مسلم وإلى العروبة منتسب"
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- History -->
+<section id="history">
+  <span class="section-label animate">السياق التاريخي</span>
+  <h2 class="section-title animate">محطات تاريخية</h2>
+  <p class="section-text animate">من نشأة الحركة الإصلاحية إلى تأسيس عيد العلم</p>
+
+  <div class="timeline">
+    <div class="timeline-item animate">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">١٨٨٩</div>
+      <p class="timeline-event">وُلد عبد الحميد بن باديس في قسنطينة، وسط أسرة دينية عريقة.</p>
+    </div>
+    <div class="timeline-item animate">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">١٩٠٨</div>
+      <p class="timeline-event">التحق بجامعة الزيتونة في تونس وتشرّب العلوم الإسلامية والفكر الإصلاحي.</p>
+    </div>
+    <div class="timeline-item animate">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">١٩١٣</div>
+      <p class="timeline-event">عاد إلى الجزائر وبدأ رحلته التعليمية في المساجد والكتاتيب، مواجهاً قيود الاستعمار.</p>
+    </div>
+    <div class="timeline-item animate">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">١٩٣١</div>
+      <p class="timeline-event">أسّس جمعية العلماء المسلمين الجزائريين التي أصبحت قلعة للهوية والتعليم العربي الإسلامي.</p>
+    </div>
+    <div class="timeline-item animate">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">١٦ أبريل ١٩٤٠</div>
+      <p class="timeline-event">رحل الإمام الكبير عن دنيانا في قسنطينة، تاركاً إرثاً علمياً وتربوياً لا يُنسى.</p>
+    </div>
+    <div class="timeline-item animate">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">١٩٧٢</div>
+      <p class="timeline-event">أعلنت الجزائر رسمياً عن يوم العلم في ١٦ أبريل إحياءً لذكرى ابن باديس.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Activities -->
+<section id="activities">
+  <span class="section-label animate">فعاليات اليوم</span>
+  <h2 class="section-title animate">كيف يُحتفل بيوم العلم؟</h2>
+  <p class="section-text animate">في هذا اليوم تنبض الجزائر بروح العلم والمعرفة من شمالها إلى جنوبها</p>
+
+  <div class="cards-grid">
+    <div class="card animate">
+      <div class="card-icon">🏫</div>
+      <h3 class="card-title">تكريم المعلمين</h3>
+      <p class="card-text">تحتفي المدارس بأساتذتها وتُكرّم المتميزين منهم، تقديراً لدورهم في تشكيل الأجيال وبناء المستقبل.</p>
+    </div>
+    <div class="card animate">
+      <div class="card-icon">📖</div>
+      <h3 class="card-title">المسابقات الثقافية</h3>
+      <p class="card-text">تُنظَّم مسابقات في القرآن الكريم والشعر العربي والمعلوميات، تشجيعاً للإبداع والتفوق.</p>
+    </div>
+    <div class="card animate">
+      <div class="card-icon">🎤</div>
+      <h3 class="card-title">المحاضرات والندوات</h3>
+      <p class="card-text">تُعقد ندوات علمية وفكرية في الجامعات والمكتبات تتناول قضايا التعليم وفكر ابن باديس.</p>
+    </div>
+    <div class="card animate">
+      <div class="card-icon">🎨</div>
+      <h3 class="card-title">المعارض والأنشطة</h3>
+      <p class="card-text">معارض للكتب والفنون والرسم في الفضاء المدرسي، تُرسّخ حبّ الثقافة في نفوس الأطفال.</p>
+    </div>
+    <div class="card animate">
+      <div class="card-icon">🌸</div>
+      <h3 class="card-title">إحياء الذاكرة</h3>
+      <p class="card-text">زيارات لضريح الإمام ابن باديس في قسنطينة وإحياء ذكراه بالتلاوة والدعاء.</p>
+    </div>
+    <div class="card animate">
+      <div class="card-icon">📡</div>
+      <h3 class="card-title">البرامج التلفزيونية</h3>
+      <p class="card-text">تُبثّ برامج وثائقية ولقاءات تروي سيرة الإمام وتاريخ الحركة الإصلاحية الجزائرية.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-flag">🇩🇿</div>
+  <p>يوم العلم — ١٦ أبريل من كل عام</p>
+  <p style="margin-top:0.3rem;">تحية للعلم ولكل معلم ومتعلم في ربوع الجزائر الحبيبة</p>
+</footer>
+
+<script>
+  // ─── Generate stars ───
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      --d:${2+Math.random()*4}s;
+      --delay:${Math.random()*5}s;
+      --op:${0.3+Math.random()*0.7};
+      width:${1+Math.random()*2}px;
+      height:${1+Math.random()*2}px;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // ─── Intersection Observer ───
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // stagger cards
+        const siblings = e.target.parentElement.querySelectorAll('.card, .stat-box, .timeline-item');
+        siblings.forEach((el, i) => {
+          el.style.transitionDelay = `${i * 0.1}s`;
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate, .section-label, .section-title, .section-text, .about-image-box, .imam-section, .card, .timeline-item, .stat-box').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
